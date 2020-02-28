@@ -50,6 +50,11 @@ export default function render() {
         >
           {this.loading.pay ? <stellar-loader /> : null} Make Payment
         </button>,
+
+        this.messages.map(message => (
+          <div class="log-message" innerHTML={message}></div>
+        )),
+
         <button
           class={this.loading.payRegulated ? "loading" : null}
           type="button"
@@ -72,10 +77,6 @@ export default function render() {
     this.error ? (
       <pre class="error">{JSON.stringify(this.error, null, 2)}</pre>
     ) : null,
-
-    this.messages.map(message => (
-      <div class="log-message" innerHTML={message}></div>
-    )),
 
     loHas(this.account, "state") ? (
       <pre class="account-state">
