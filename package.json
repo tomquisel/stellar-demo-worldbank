@@ -37,5 +37,8 @@
     "menubar": "^8.0.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "stellar-sdk": "^4.0.1"
+  },
+  "dependencies": {
+    "toml": "^3.0.0"
   }
 }
