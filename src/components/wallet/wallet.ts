@@ -2,6 +2,7 @@ import { Component, State, Prop } from "@stencil/core";
 import { Server, ServerApi } from "stellar-sdk";
 
 import componentWillLoad from "./events/componentWillLoad"; // UPDATE
+import componentDidLoad from "./events/componentDidLoad";
 import render from "./events/render"; // UPDATE
 
 import createAccount from "./methods/createAccount";
@@ -51,9 +52,11 @@ export class Wallet {
   @Prop() server: Server;
   @Prop() homeDomain: String; // NEW
   @Prop() toml: Object; // NEW
+  @Prop() secret: String;
 
   // Component events
   componentWillLoad() {}
+  componentDidLoad() {}
   render() {}
 
   // Stellar methods
@@ -74,4 +77,5 @@ export class Wallet {
 }
 
 Wallet.prototype.componentWillLoad = componentWillLoad;
+Wallet.prototype.componentDidLoad = componentDidLoad;
 Wallet.prototype.render = render;
