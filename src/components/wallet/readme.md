@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property     | Attribute | Description | Type     | Default     |
-| ------------ | --------- | ----------- | -------- | ----------- |
-| `homeDomain` | --        |             | `String` | `undefined` |
-| `server`     | --        |             | `Server` | `undefined` |
-| `toml`       | --        |             | `Object` | `undefined` |
+| Property     | Attribute    | Description | Type     | Default     |
+| ------------ | ------------ | ----------- | -------- | ----------- |
+| `homeDomain` | --           |             | `String` | `undefined` |
+| `secretKey`  | `secret-key` |             | `string` | `undefined` |
+| `server`     | --           |             | `Server` | `undefined` |
+| `toml`       | --           |             | `Object` | `undefined` |
 
 
 ## Dependencies
@@ -25,11 +26,13 @@
 - [stellar-loader](../loader)
 - [stellar-loader](../loader)
 - [stellar-loader](../loader)
+- [stellar-loader](../loader)
 
 ### Graph
 ```mermaid
 graph TD;
   stellar-wallet --> stellar-prompt
+  stellar-wallet --> stellar-loader
   stellar-wallet --> stellar-loader
   stellar-wallet --> stellar-loader
   stellar-wallet --> stellar-loader

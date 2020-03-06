@@ -6,10 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
   <title>Stellar Wallet</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/reset-css/reset.css">
+
   <style>
     body {
-      padding: 10px;
+      padding: 0;
+      background-color: rgb(200, 200, 200);
+    }
+
+    .wallet-container {
+      background-color: white;
+      margin: 32px;
+      margin-bottom: 64px
+    }
+
+    h1 {
+      font-family: sans-serif;
+      margin-left: 36px;
     }
   </style>
 
@@ -18,7 +30,18 @@
 </head>
 
 <body>
-  <stellar-wallet secret="HELLOOO" />
+  <h1>Alice's Wallet</h1>
+  <div class="wallet-container">
+    <stellar-wallet secret-key="SBRRSZBAFAACYORCZ4HAUBJCQL2SELZHHQTLTJVBMNQRLKWDDWMH2OHU" />
+  </div>
+  <h1>Bob's Wallet</h1>
+  <div class="wallet-container">
+    <stellar-wallet secret-key="SC3ZYYG6ZJZGTGWCNQLMF45PYFHPHWRCIK5LLQV7XAXMQNQM4IGIWHEF" />
+  </div>
+  <h1>Chad's Wallet</h1>
+  <div class="wallet-container">
+    <stellar-wallet secret-key="SDAUKUXKTOHXQICZEMXFBN4BE27LI4O2SBPT4EOQ6N22HKNPF5WZW6H2" />
+  </div>
 </body>
 
 </html>

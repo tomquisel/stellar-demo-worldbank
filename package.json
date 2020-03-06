@@ -39,6 +39,7 @@
     "stellar-sdk": "^4.0.1"
   },
   "dependencies": {
+    "identicon.js": "^2.3.3",
     "toml": "^3.0.0"
   }
 }

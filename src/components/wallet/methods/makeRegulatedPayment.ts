@@ -1,6 +1,4 @@
-import sjcl from "@tinyanvil/sjcl";
 import {
-  Keypair,
   Transaction,
   TransactionBuilder,
   Networks,
@@ -9,7 +7,6 @@ import {
   Asset,
   xdr
 } from "stellar-sdk";
-import { get as loGet } from "lodash-es";
 import TOML from "toml";
 
 import { handleError } from "@services/error";
@@ -22,36 +19,19 @@ function makeTransactionSummary(tx: Transaction): string {
   )}</div>`;
 }
 
-export default async function makeRegulatedPayment(e?: Event) {
+export default async function makeRegulatedPayment(
+  e?: Event,
+  assetCode?: string,
+  assetIssuer?: string
+) {
   try {
     if (e) e.preventDefault();
     this.loading = { ...this.loading, payRegulated: true };
     const server = new Server("https://horizon-testnet.stellar.org");
-    let instructions = await this.setPrompt("{Amount} {Asset} {Destination}");
-    const [amount, assetCode, destination] = instructions.split(" ");
-    // const [amount, assetCode, destination] = [
-    //   "20",
-    //   "REG",
-    //   "GA6XFZYMX2V7SSCIYOEYXO3BM45F73XG5VROHPXVCIXWHXIZ3TAUT2V5"
-    // ];
-    const balances: any[] = loGet(this.account, "state.balances");
-    const assetBalance = balances.find(
-      balance => balance.asset_code === assetCode
-    );
-    let assetIssuer;
-    if (!assetBalance) {
-      assetIssuer = await this.setPrompt(
-        `Who issues the ${assetCode} asset?`,
-        "Enter ME to refer to yourself"
-      );
-    } else {
-      assetIssuer = assetBalance.asset_issuer;
-    }
+    let instructions = await this.setPrompt("{Amount} {Destination}");
+    const [amount, destination] = instructions.split(" ");
 
-    const pincode = "1119"; //await this.setPrompt("Enter your keystore pincode");
-    const keypair = Keypair.fromSecret(
-      sjcl.decrypt(pincode, this.account.keystore)
-    );
+    const keypair = this.account.keypair;
     this.log(
       `Sending ${amount} <a href="https://stellar.expert/explorer/testnet/asset/${assetCode}-${assetIssuer}" target="_blank">${assetCode}</a> to <a href="https://stellar.expert/explorer/testnet/account/${destination}" target="_blank">${destination}</a>`
     );

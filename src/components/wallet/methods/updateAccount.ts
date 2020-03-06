@@ -19,8 +19,7 @@ export default async function updateAccount(e?: Event) {
             "limit",
             "buying_liabilities",
             "selling_liabilities",
-            "last_modified_ledger",
-            balance.asset_type !== "native" ? "asset_type" : null
+            "last_modified_ledger"
           ])
         );
 

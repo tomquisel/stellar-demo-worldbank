@@ -2,8 +2,49 @@
 
 :host {
   display: block;
-  font-family: $font-family;
+  font-family: monospace;
   font-size: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+
+  button {
+    color: black;
+    background-color: rgb(200, 200, 200);
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+
+    .wallet {
+      width: 50%;
+      padding: 12px;
+    }
+
+    .log-viewer {
+      max-height: 600px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      width: 50%;
+      background: rgb(50, 50, 50);
+      color: white;
+      font-family: monospace;
+      padding: 8px;
+      padding-bottom: 16px;
+
+      a {
+        color: white;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      .log {
+        margin-bottom: 8px;
+        margin-top: 4px;
+      }
+    }
+  }
 
   p {
     white-space: nowrap;
@@ -11,21 +52,26 @@
     text-overflow: ellipsis;
     display: block;
   }
-  button {
-    margin-bottom: 10px;
-  }
 
   .account-key {
     display: flex;
     align-items: center;
+    flex-direction: row;
     width: 100%;
     margin-bottom: 10px;
+    align-items: center;
+    font-size: 24px;
+    height: 48px;
 
-    .small {
-      margin: 0 0 0 10px;
-      flex-shrink: 0;
+    div {
+      margin-right: 12px;
+    }
+
+    img {
+      translate: 0px 4px;
     }
   }
+
   .account-state,
   .error {
     overflow: scroll;
@@ -36,9 +82,7 @@
     margin-bottom: 10px;
     width: 100%;
   }
-  .account-state {
-    background-color: whitesmoke;
-  }
+
   .error {
     background-color: orangered;
     color: white;
@@ -62,6 +106,33 @@
     white-space: pre;
     padding: 8px;
     background: lightgray;
+    color: black;
     margin-top: 10px;
+    overflow-x: scroll;
+  }
+
+  .balance-row {
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    align-items: center;
+
+    margin-bottom: 4px;
+    padding: 4px 0 8px 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    :not(:first-child) {
+      margin-left: 8px;
+    }
+
+    .asset-code {
+      width: 60px;
+    }
+    .balance {
+      width: 120px;
+    }
   }
 }

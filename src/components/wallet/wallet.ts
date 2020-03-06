@@ -1,11 +1,11 @@
 import { Component, State, Prop } from "@stencil/core";
-import { Server, ServerApi } from "stellar-sdk";
+import { Server } from "stellar-sdk";
+
+import { StellarAccount } from "./types";
 
 import componentWillLoad from "./events/componentWillLoad"; // UPDATE
-import componentDidLoad from "./events/componentDidLoad";
 import render from "./events/render"; // UPDATE
 
-import createAccount from "./methods/createAccount";
 import updateAccount from "./methods/updateAccount";
 import depositAsset from "./methods/depositAsset"; // NEW
 import withdrawAsset from "./methods/withdrawAsset"; // NEW
@@ -15,17 +15,11 @@ import makeRegulatedPayment from "./methods/makeRegulatedPayment";
 import log from "./methods/log";
 
 import copyAddress from "./methods/copyAddress";
-import copySecret from "./methods/copySecret";
-import signOut from "./methods/signOut";
 import setPrompt from "./methods/setPrompt";
 
-import { Prompter } from "@prompt/prompt";
+import balanceDisplay from "./events/views/balanceDisplay";
 
-interface StellarAccount {
-  publicKey: string;
-  keystore: string;
-  state?: ServerApi.AccountRecord;
-}
+import { Prompter } from "@prompt/prompt";
 
 interface Loading {
   fund?: boolean;
@@ -52,15 +46,13 @@ export class Wallet {
   @Prop() server: Server;
   @Prop() homeDomain: String; // NEW
   @Prop() toml: Object; // NEW
-  @Prop() secret: String;
+  @Prop() secretKey: string;
 
   // Component events
   componentWillLoad() {}
-  componentDidLoad() {}
   render() {}
 
   // Stellar methods
-  createAccount = createAccount;
   updateAccount = updateAccount;
   depositAsset = depositAsset; // NEW
   withdrawAsset = withdrawAsset; // NEW
@@ -68,14 +60,13 @@ export class Wallet {
   makePayment = makePayment;
   makeRegulatedPayment = makeRegulatedPayment;
   copyAddress = copyAddress;
-  copySecret = copySecret;
-  signOut = signOut;
 
   // Misc methods
   setPrompt = setPrompt;
   log = log;
+
+  balanceDisplay = balanceDisplay;
 }
 
 Wallet.prototype.componentWillLoad = componentWillLoad;
-Wallet.prototype.componentDidLoad = componentDidLoad;
 Wallet.prototype.render = render;

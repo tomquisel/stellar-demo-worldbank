@@ -23,7 +23,7 @@ export namespace Components {
   }
   interface StellarWallet {
     'homeDomain': String;
-    'secret': String;
+    'secretKey': string;
     'server': Server;
     'toml': Object;
   }
@@ -65,7 +65,7 @@ declare namespace LocalJSX {
   }
   interface StellarWallet {
     'homeDomain'?: String;
-    'secret'?: String;
+    'secretKey'?: string;
     'server'?: Server;
     'toml'?: Object;
   }
