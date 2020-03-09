@@ -39,6 +39,7 @@ export default async function updateAccount(e?: Event) {
             "data_attr"
           ])
         };
+        this.checkRevocationStatus();
       })
       .finally(() => (this.loading = { ...this.loading, update: false }));
   } catch (err) {

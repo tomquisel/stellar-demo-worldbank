@@ -7,6 +7,7 @@ export interface Prompter {
   placeholder?: string;
   options?: Array<any>;
   info?: string;
+
   resolve?: Function;
   reject?: Function;
 }
@@ -35,7 +36,7 @@ export class Prompt {
           this.input ||
           `${newValue.options[0].code}:${newValue.options[0].issuer}`;
       else
-        loDefer(() => this.element.shadowRoot.querySelector("input").focus());
+        loDefer(() => this.element.shadowRoot.querySelector("input")?.focus());
     } else {
       this.prompter.message = null;
       this.prompter.placeholder = null;
@@ -78,38 +79,49 @@ export class Prompt {
     this.input = e.target.value.toUpperCase();
   }
 
+  renderOptions() {
+    if (!this.prompter.options) return null;
+    return (
+      <div class="select-wrapper">
+        <select onInput={e => this.update(e)}>
+          {this.prompter.options.map(option => (
+            <option
+              value={`${option.code}:${option.issuer}`}
+              selected={this.input === `${option.code}:${option.issuer}`}
+            >
+              {option.code}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  }
+
+  renderTextInput() {
+    if (this.prompter.options || this.prompter.info) return null;
+    return (
+      <input
+        type="text"
+        placeholder={this.prompter.placeholder}
+        value={this.input}
+        onInput={e => this.update(e)}
+      ></input>
+    );
+  }
+
+  renderInfo() {
+    if (!this.prompter.info) return null;
+    return <div innerHTML={this.prompter.info}></div>;
+  }
+
   render() {
     return this.prompter.show ? (
       <div class="prompt-wrapper">
         <div class="prompt">
           {this.prompter.message ? <p>{this.prompter.message}</p> : null}
-
-          {this.prompter.options ? (
-            <div class="select-wrapper">
-              <select onInput={e => this.update(e)}>
-                {this.prompter.options.map(option => (
-                  <option
-                    value={`${option.code}:${option.issuer}`}
-                    selected={this.input === `${option.code}:${option.issuer}`}
-                  >
-                    {option.code}
-                  </option>
-                ))}
-              </select>
-            </div>
-          ) : (
-            <input
-              type="text"
-              placeholder={this.prompter.placeholder}
-              value={this.input}
-              onInput={e => this.update(e)}
-            ></input>
-          )}
-
-          {this.prompter.info ? (
-            <div innerHTML={this.prompter.info}></div>
-          ) : null}
-
+          {this.renderOptions()}
+          {this.renderTextInput()}
+          {this.renderInfo()}
           <div class="actions">
             <button class="cancel" type="button" onClick={e => this.cancel(e)}>
               Cancel

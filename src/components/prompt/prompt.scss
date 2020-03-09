@@ -89,4 +89,13 @@
       margin-left: 10px;
     }
   }
+
+  .popup-code-set {
+    background: lightgray;
+    padding: 8px;
+
+    & > div {
+      margin-bottom: 4px;
+    }
+  }
 }

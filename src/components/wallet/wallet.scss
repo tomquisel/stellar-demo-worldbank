@@ -103,7 +103,6 @@
 
   .code-set {
     font-size: 12px;
-    white-space: pre;
     padding: 8px;
     background: lightgray;
     color: black;
@@ -119,6 +118,11 @@
 
     margin-bottom: 4px;
     padding: 4px 0 8px 0;
+
+    &.revoked {
+      color: red;
+      text-decoration: line-through;
+    }
 
     &:not(:last-child) {
       border-bottom: 1px solid rgba(0, 0, 0, 0.3);

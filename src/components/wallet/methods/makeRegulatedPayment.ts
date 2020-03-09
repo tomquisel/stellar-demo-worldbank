@@ -12,11 +12,31 @@ import TOML from "toml";
 import { handleError } from "@services/error";
 
 function makeTransactionSummary(tx: Transaction): string {
-  return `<div class="code-set">${JSON.stringify(
-    tx.operations,
-    null,
-    2
-  )}</div>`;
+  const opMessages = tx.operations.map(operation => {
+    switch (operation.type) {
+      case "allowTrust":
+        return `<div>
+        ${operation.authorize ? "Authorize" : "Deauthorize"} ${
+          operation.assetCode
+        } access for ${operation.trustor.substr(0, 6)}
+        </div>`;
+      case "payment":
+        return `<div>
+          ${(operation.source || tx.source).substr(0, 6)}
+          pays ${operation.destination.substr(0, 6)}
+          ${parseFloat(operation.amount).toFixed(2)}
+          ${operation.asset.code}
+        </div>`;
+      default:
+        return `<div>Unknown op type: <pre>${JSON.stringify(
+          operation,
+          null,
+          2
+        )}</pre></div>`;
+    }
+  });
+
+  return `<div class="popup-code-set code-set">${opMessages.join("\n")}</div>`;
 }
 
 export default async function makeRegulatedPayment(
@@ -46,7 +66,10 @@ export default async function makeRegulatedPayment(
     tomlURL.pathname = "/.well-known/stellar.toml";
     const tomlText = await fetch(tomlURL.toString()).then(r => r.text());
     this.log(
-      `Received TOML from ${tomlURL.toString()}<br/><div class="code-set">${tomlText}</div>`
+      `Received TOML from ${tomlURL.toString()}<br/><div class="code-set">${tomlText.replace(
+        /\n/g,
+        "<br />"
+      )}</div>`
     );
     const toml = TOML.parse(tomlText);
 
@@ -80,6 +103,12 @@ export default async function makeRegulatedPayment(
     const json = await fetch(approvalUrl.toString()).then(resp => resp.json());
     this.log("Response from approval server: " + json.status);
     if (json.status === "rejected") {
+      await this.setPrompt(
+        "❌ Transaction rejected by issuer",
+        null,
+        null,
+        `Reason: ${json.error}`
+      );
       this.log("❌ Proposed transaction rejected with error: " + json.error);
       this.loading = { ...this.loading, payRegulated: false };
       return;
@@ -96,7 +125,7 @@ export default async function makeRegulatedPayment(
         "Confirm revised transaction from compliance server?",
         "Just press ok or cancel",
         null,
-        "<pre>" + makeTransactionSummary(revisedTx) + "</pre>"
+        makeTransactionSummary(revisedTx)
       );
     } catch (e) {
       this.log("❌ Not signing the revised transaction, nothing happens");

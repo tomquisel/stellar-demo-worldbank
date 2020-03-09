@@ -1,6 +1,7 @@
 import { h } from "@stencil/core";
 import Identicon from "identicon.js";
 import { StellarAccount } from "../../types";
+import truncateAddress from "../../util/truncateAddress";
 import copy from "copy-to-clipboard";
 
 function convertToHex(str) {
@@ -19,10 +20,7 @@ export default function AccountHeader(account: StellarAccount) {
     background: [255, 255, 255, 255]
   }).toString();
 
-  const acctDisplay =
-    account.publicKey.substring(0, 5) +
-    "..." +
-    account.publicKey.substring(51, 56);
+  const acctDisplay = truncateAddress(account.publicKey);
 
   return (
     <div class="account-key">

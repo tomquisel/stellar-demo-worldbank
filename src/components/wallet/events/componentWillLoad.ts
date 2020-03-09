@@ -14,6 +14,11 @@ export default async function componentWillLoad() {
       keypair
     };
     this.updateAccount();
+
+    window.addEventListener("focus", () => {
+      console.log("Focus", this);
+      this.checkRevocationStatus();
+    });
   } catch (err) {
     this.error = handleError(err);
   }

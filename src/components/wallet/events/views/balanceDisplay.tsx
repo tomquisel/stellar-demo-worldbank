@@ -11,6 +11,11 @@ interface Balance {
 
 export default function BalanceDisplay() {
   const balanceRow = (balance: Balance) => {
+    const revokedAssets: Set<string> = this.revokedAssets;
+    const asset = `${balance.asset_code}:${balance.asset_issuer}`;
+    const isRevoked = revokedAssets.has(asset);
+    console.log(revokedAssets);
+    console.log("IS REVOKED", isRevoked, this.account.keypair.publicKey());
     const regulatedButton =
       balance.asset_type === "native" ? null : (
         <button
@@ -23,7 +28,7 @@ export default function BalanceDisplay() {
       );
     const name = balance.asset_type === "native" ? "XLM" : balance.asset_code;
     return (
-      <div class="balance-row">
+      <div class={`balance-row ${isRevoked ? "revoked" : "active"}`}>
         <div class="asset-code">{name}</div>
         <div class="balance">{parseFloat(balance.balance).toFixed(2)}</div>
         <button onClick={e => this.makePayment(e, name, balance.asset_issuer)}>

@@ -13,6 +13,7 @@ import trustAsset from "./methods/trustAsset";
 import makePayment from "./methods/makePayment";
 import makeRegulatedPayment from "./methods/makeRegulatedPayment";
 import log from "./methods/log";
+import checkRevocationStatus from "./methods/checkRevocationStatus";
 
 import copyAddress from "./methods/copyAddress";
 import setPrompt from "./methods/setPrompt";
@@ -42,6 +43,7 @@ export class Wallet {
   @State() loading: Loading = {};
   @State() error: any = null;
   @State() messages: string[] = [];
+  @State() revokedAssets: Set<string> = new Set();
 
   @Prop() server: Server;
   @Prop() homeDomain: String; // NEW
@@ -60,6 +62,7 @@ export class Wallet {
   makePayment = makePayment;
   makeRegulatedPayment = makeRegulatedPayment;
   copyAddress = copyAddress;
+  checkRevocationStatus = checkRevocationStatus;
 
   // Misc methods
   setPrompt = setPrompt;
