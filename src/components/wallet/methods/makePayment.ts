@@ -12,38 +12,20 @@ import { handleError } from "@services/error";
 
 export default async function makePayment(
   e?: Event,
-  asset?: string,
-  issuer?: string,
-  destination?: string
+  assetCode?: string,
+  issuer?: string
 ) {
   try {
     if (e) e.preventDefault();
 
-    let instructions;
-
-    if (destination && asset) {
-      instructions = await this.setPrompt(`How much ${asset} to pay?`);
-      instructions = [instructions, asset, destination, issuer];
-    } else {
-      instructions = await this.setPrompt("{Amount} {Asset} {Destination}");
-      instructions = instructions.split(" ");
-
-      if (!/xlm/gi.test(instructions[1]))
-        instructions[3] = await this.setPrompt(
-          `Who issues the ${instructions[1]} asset?`,
-          "Enter ME to refer to yourself"
-        );
-    }
-
-    if (!instructions) return;
-
+    let instructions = await this.setPrompt("{Amount} {Destination}");
+    const [amount, destination] = instructions.split(" ");
     const keypair = this.account.keypair;
-
-    if (/me/gi.test(instructions[3])) instructions[3] = keypair.publicKey();
 
     this.error = null;
     this.loading = { ...this.loading, pay: true };
-
+    const asset =
+      assetCode === "XLM" ? Asset.native() : new Asset(assetCode, issuer);
     await this.server
       .accounts()
       .accountId(keypair.publicKey())
@@ -56,11 +38,9 @@ export default async function makePayment(
         })
           .addOperation(
             Operation.payment({
-              destination: instructions[2],
-              asset: instructions[3]
-                ? new Asset(instructions[1], instructions[3])
-                : Asset.native(),
-              amount: instructions[0]
+              destination,
+              asset,
+              amount
             })
           )
           .setTimeout(0)
