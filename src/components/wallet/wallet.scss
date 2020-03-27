@@ -50,4 +50,53 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+<<<<<<< Updated upstream
 }
+=======
+
+  .log-message {
+    background: lightblue;
+    padding: 8px;
+    margin-bottom: 4px;
+  }
+
+  .code-set {
+    font-size: 12px;
+    padding: 8px;
+    background: lightgray;
+    color: black;
+    margin-top: 10px;
+    overflow-x: scroll;
+  }
+
+  .balance-row {
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    align-items: center;
+
+    margin-bottom: 4px;
+    padding: 4px 0 8px 0;
+
+    &.revoked {
+      color: red;
+      text-decoration: line-through;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    :not(:first-child) {
+      margin-left: 8px;
+    }
+
+    .asset-code {
+      width: 90px;
+    }
+    .balance {
+      width: 120px;
+    }
+  }
+}
+>>>>>>> Stashed changes

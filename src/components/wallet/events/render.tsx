@@ -3,6 +3,7 @@ import { has as loHas } from 'lodash-es'
 
 export default function render() {
   return [
+<<<<<<< Updated upstream
     <stellar-prompt prompter={this.prompter} />,
 
     this.account
@@ -31,3 +32,49 @@ export default function render() {
     ] : null,
   ]
 }
+=======
+    <div class="container" style={{ position: "relative" }}>
+      <div class="wallet">
+        <stellar-prompt prompter={this.prompter} />
+        {AccountHeader(this.account)}
+        {this.balanceDisplay()}
+        <button
+          class={this.loading.update ? "loading" : ""}
+          type="button"
+          onClick={e => this.updateAccount(e)}
+        >
+          {this.loading.update ? <stellar-loader /> : null} Refresh
+        </button>
+        <button
+          class={this.loading.trust ? "loading" : null}
+          type="button"
+          style={{ marginLeft: "8px" }}
+          onClick={e => this.trustAsset(e)}
+        >
+          {this.loading.trust ? <stellar-loader /> : null} + Add Trustline
+        </button>
+        <button
+          class={this.loading.trust ? "loading" : null}
+          type="button"
+          style={{ marginLeft: "8px" }}
+          onClick={e => this.requestDisbursement(e)}
+        >
+          {this.loading.trust ? <stellar-loader /> : null} Request Disbursement
+        </button>
+        <button
+          class={this.loading.trust ? "loading" : null}
+          type="button"
+          style={{ marginLeft: "8px" }}
+          onClick={e => this.approveDisbursement(e)}
+        >
+          {this.loading.trust ? <stellar-loader /> : null} Approve Disbursement
+        </button>
+      </div>
+      <div class="log-viewer">{LogViewer(this.messages)}</div>
+    </div>,
+    this.error ? (
+      <pre class="error">{JSON.stringify(this.error, null, 2)}</pre>
+    ) : null
+  ];
+}
+>>>>>>> Stashed changes

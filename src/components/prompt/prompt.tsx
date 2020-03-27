@@ -82,7 +82,46 @@ export class Prompt {
   }
 
   update(e) {
+<<<<<<< Updated upstream
     this.input = e.target.value.toUpperCase()
+=======
+    this.input = e.target.value;
+  }
+
+  renderOptions() {
+    if (!this.prompter.options) return null;
+    return (
+      <div class="select-wrapper">
+        <select onInput={e => this.update(e)}>
+          {this.prompter.options.map(option => (
+            <option
+              value={`${option.code}:${option.issuer}`}
+              selected={this.input === `${option.code}:${option.issuer}`}
+            >
+              {option.code}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  }
+
+  renderTextInput() {
+    if (this.prompter.options || this.prompter.info) return null;
+    return (
+      <input
+        type="text"
+        placeholder={this.prompter.placeholder}
+        value={this.input}
+        onInput={e => this.update(e)}
+      ></input>
+    );
+  }
+
+  renderInfo() {
+    if (!this.prompter.info) return null;
+    return <div innerHTML={this.prompter.info}></div>;
+>>>>>>> Stashed changes
   }
 
   render() {

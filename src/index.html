@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+<<<<<<< Updated upstream
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
@@ -19,3 +20,62 @@
   <stellar-wallet />
 </body>
 </html>
+=======
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Stellar Wallet</title>
+
+    <style>
+      body {
+        padding: 0;
+        background-color: #add8e6;
+      }
+
+      .wallet-container {
+        background-color: white;
+        margin: 32px;
+        margin-bottom: 64px;
+      }
+
+      h1 {
+        font-family: sans-serif;
+        margin-left: 36px;
+      }
+    </style>
+
+    <script type="module" src="/build/stellar-wallet.esm.js"></script>
+    <script nomodule src="/build/stellar-wallet.js"></script>
+  </head>
+
+  <body>
+    <h1>PIU's Account</h1>
+    <div class="wallet-container">
+      <stellar-wallet
+        secret-key="SDIQLMEDWB5MZIQL7VVZOYSKQQYBUX3B5TNQAUL2OEFPFR6X7RM56YEG"
+      />
+    </div>
+    <h1>Supplier's Account</h1>
+    <div class="wallet-container">
+      <stellar-wallet
+        secret-key="SBKWEZMJKDM57EFG65GRTKURKR4BKJT7G4RPATO33K52ZGEEZ6VAXC5W"
+      />
+    </div>
+    <h1>World Bank's Wallet</h1>
+    <div class="wallet-container">
+      <stellar-wallet
+        secret-key="SBHMK436C3G2TJU5U2JCDW4LFRPSQ3VOJPNSAXGKAJVA5FSMWL5JK64N"
+      />
+    </div>
+    <h1>Issuer</h1>
+    <div class="wallet-container">
+      <stellar-wallet
+        secret-key="SAWUDF3ETMPPNQZBPXUBTUTBEN22H6N4KYIFGQ6VXDWZT5HXZ2ZAOXPO"
+      />
+    </div>
+  </body>
+</html>
+>>>>>>> Stashed changes

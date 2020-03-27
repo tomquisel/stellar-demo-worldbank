@@ -22,6 +22,7 @@ import copySecret from './methods/copySecret'
 import signOut from './methods/signOut'
 import setPrompt from './methods/setPrompt'
 
+<<<<<<< Updated upstream
 import { Prompter } from '@prompt/prompt'
 
 interface StellarAccount {
@@ -29,6 +30,24 @@ interface StellarAccount {
   keystore: string,
   state?: ServerApi.AccountRecord,
 }
+=======
+import updateAccount from "./methods/updateAccount";
+import depositAsset from "./methods/depositAsset"; // NEW
+import withdrawAsset from "./methods/withdrawAsset"; // NEW
+import trustAsset from "./methods/trustAsset";
+import makePayment from "./methods/makePayment";
+import log from "./methods/log";
+import checkRevocationStatus from "./methods/checkRevocationStatus";
+
+import copyAddress from "./methods/copyAddress";
+import setPrompt from "./methods/setPrompt";
+import requestDisbursement from "./methods/requestDisbursement";
+import approveDisbursement from "./methods/approveDisbursement";
+
+import balanceDisplay from "./events/views/balanceDisplay";
+
+import { Prompter } from "@prompt/prompt";
+>>>>>>> Stashed changes
 
 interface Loading {
   fund?: boolean,
@@ -59,6 +78,7 @@ export class Wallet {
   render() {}
 
   // Stellar methods
+<<<<<<< Updated upstream
   createAccount = createAccount
   updateAccount = updateAccount
   depositAsset = depositAsset // NEW
@@ -71,6 +91,23 @@ export class Wallet {
 
   // Misc methods
   setPrompt = setPrompt
+=======
+  updateAccount = updateAccount;
+  depositAsset = depositAsset; // NEW
+  withdrawAsset = withdrawAsset; // NEW
+  trustAsset = trustAsset;
+  makePayment = makePayment;
+  copyAddress = copyAddress;
+  checkRevocationStatus = checkRevocationStatus;
+
+  // Misc methods
+  setPrompt = setPrompt;
+  log = log;
+  requestDisbursement = requestDisbursement;
+  approveDisbursement = approveDisbursement;
+
+  balanceDisplay = balanceDisplay;
+>>>>>>> Stashed changes
 }
 
 Wallet.prototype.componentWillLoad = componentWillLoad
