@@ -12,7 +12,7 @@ export default function render() {
         <button
           class={this.loading.update ? "loading" : ""}
           type="button"
-          onClick={e => this.updateAccount(e)}
+          onClick={(e) => this.updateAccount(e)}
         >
           {this.loading.update ? <stellar-loader /> : null} Refresh
         </button>
@@ -20,15 +20,31 @@ export default function render() {
           class={this.loading.trust ? "loading" : null}
           type="button"
           style={{ marginLeft: "8px" }}
-          onClick={e => this.trustAsset(e)}
+          onClick={(e) => this.trustAsset(e)}
         >
           {this.loading.trust ? <stellar-loader /> : null} + Add Trustline
+        </button>
+        <button
+          class={this.loading.trust ? "loading" : null}
+          type="button"
+          style={{ marginLeft: "8px" }}
+          onClick={(e) => this.requestDisbursement(e)}
+        >
+          {this.loading.trust ? <stellar-loader /> : null} Request Disbursement
+        </button>
+        <button
+          class={this.loading.trust ? "loading" : null}
+          type="button"
+          style={{ marginLeft: "8px" }}
+          onClick={(e) => this.approveDisbursement(e)}
+        >
+          {this.loading.trust ? <stellar-loader /> : null} Approve Disbursement
         </button>
       </div>
       <div class="log-viewer">{LogViewer(this.messages)}</div>
     </div>,
     this.error ? (
       <pre class="error">{JSON.stringify(this.error, null, 2)}</pre>
-    ) : null
+    ) : null,
   ];
 }

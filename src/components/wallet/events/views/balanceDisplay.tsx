@@ -16,25 +16,16 @@ export default function BalanceDisplay() {
     const isRevoked = revokedAssets.has(asset);
     console.log(revokedAssets);
     console.log("IS REVOKED", isRevoked, this.account.keypair.publicKey());
-    const regulatedButton =
-      balance.asset_type === "native" ? null : (
-        <button
-          onClick={e =>
-            this.makeRegulatedPayment(e, name, balance.asset_issuer)
-          }
-        >
-          Send As Regulated Asset
-        </button>
-      );
     const name = balance.asset_type === "native" ? "XLM" : balance.asset_code;
     return (
       <div class={`balance-row ${isRevoked ? "revoked" : "active"}`}>
         <div class="asset-code">{name}</div>
         <div class="balance">{parseFloat(balance.balance).toFixed(2)}</div>
-        <button onClick={e => this.makePayment(e, name, balance.asset_issuer)}>
+        <button
+          onClick={(e) => this.makePayment(e, name, balance.asset_issuer)}
+        >
           Send
         </button>
-        {regulatedButton}
       </div>
     );
   };

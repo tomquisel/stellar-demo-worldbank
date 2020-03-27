@@ -11,12 +11,13 @@ import depositAsset from "./methods/depositAsset"; // NEW
 import withdrawAsset from "./methods/withdrawAsset"; // NEW
 import trustAsset from "./methods/trustAsset";
 import makePayment from "./methods/makePayment";
-import makeRegulatedPayment from "./methods/makeRegulatedPayment";
 import log from "./methods/log";
 import checkRevocationStatus from "./methods/checkRevocationStatus";
 
 import copyAddress from "./methods/copyAddress";
 import setPrompt from "./methods/setPrompt";
+import requestDisbursement from "./methods/requestDisbursement";
+import approveDisbursement from "./methods/approveDisbursement";
 
 import balanceDisplay from "./events/views/balanceDisplay";
 
@@ -35,7 +36,7 @@ interface Loading {
 @Component({
   tag: "stellar-wallet",
   styleUrl: "wallet.scss",
-  shadow: true
+  shadow: true,
 })
 export class Wallet {
   @State() account: StellarAccount;
@@ -60,13 +61,14 @@ export class Wallet {
   withdrawAsset = withdrawAsset; // NEW
   trustAsset = trustAsset;
   makePayment = makePayment;
-  makeRegulatedPayment = makeRegulatedPayment;
   copyAddress = copyAddress;
   checkRevocationStatus = checkRevocationStatus;
 
   // Misc methods
   setPrompt = setPrompt;
   log = log;
+  requestDisbursement = requestDisbursement;
+  approveDisbursement = approveDisbursement;
 
   balanceDisplay = balanceDisplay;
 }

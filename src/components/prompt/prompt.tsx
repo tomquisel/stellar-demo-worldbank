@@ -15,7 +15,7 @@ export interface Prompter {
 @Component({
   tag: "stellar-prompt",
   styleUrl: "prompt.scss",
-  shadow: true
+  shadow: true,
 })
 export class Prompt {
   @Element() private element: HTMLElement;
@@ -60,7 +60,7 @@ export class Prompt {
 
     this.prompter = {
       ...this.prompter,
-      show: false
+      show: false,
     };
     this.prompter.reject(null);
   }
@@ -70,21 +70,21 @@ export class Prompt {
 
     this.prompter = {
       ...this.prompter,
-      show: false
+      show: false,
     };
     this.prompter.resolve(this.input);
   }
 
   update(e) {
-    this.input = e.target.value.toUpperCase();
+    this.input = e.target.value;
   }
 
   renderOptions() {
     if (!this.prompter.options) return null;
     return (
       <div class="select-wrapper">
-        <select onInput={e => this.update(e)}>
-          {this.prompter.options.map(option => (
+        <select onInput={(e) => this.update(e)}>
+          {this.prompter.options.map((option) => (
             <option
               value={`${option.code}:${option.issuer}`}
               selected={this.input === `${option.code}:${option.issuer}`}
@@ -104,7 +104,7 @@ export class Prompt {
         type="text"
         placeholder={this.prompter.placeholder}
         value={this.input}
-        onInput={e => this.update(e)}
+        onInput={(e) => this.update(e)}
       ></input>
     );
   }
@@ -123,10 +123,18 @@ export class Prompt {
           {this.renderTextInput()}
           {this.renderInfo()}
           <div class="actions">
-            <button class="cancel" type="button" onClick={e => this.cancel(e)}>
+            <button
+              class="cancel"
+              type="button"
+              onClick={(e) => this.cancel(e)}
+            >
               Cancel
             </button>
-            <button class="submit" type="button" onClick={e => this.submit(e)}>
+            <button
+              class="submit"
+              type="button"
+              onClick={(e) => this.submit(e)}
+            >
               OK
             </button>
           </div>
